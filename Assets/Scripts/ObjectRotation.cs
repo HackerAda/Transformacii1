@@ -5,7 +5,8 @@ using UnityEngine;
 public class CubeRotate : MonoBehaviour
 {
     [SerializeField] private int _rotationSpeed;
-    void Update()
+
+    public void Update()
     {
         transform.Rotate(0, _rotationSpeed, 0);
     }

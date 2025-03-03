@@ -5,7 +5,8 @@ using UnityEngine;
 public class cubeForwardLocal : MonoBehaviour
 {
     [SerializeField] private Vector3 _movementDirection;
-    void Update()
+
+    public void Update()
     {
         transform.Translate(_movementDirection, Space.Self);
     }

@@ -5,7 +5,8 @@ using UnityEngine;
 public class cubeSize : MonoBehaviour
 {
     [SerializeField] private Vector3 _speedSize;
-    void Update()
+
+    public void Update()
     {
         transform.localScale += _speedSize * Time.deltaTime;
     }
