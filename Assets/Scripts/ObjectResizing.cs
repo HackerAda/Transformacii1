@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cubeSize : MonoBehaviour
+public class ObjectResizing : MonoBehaviour
 {
     [SerializeField] private Vector3 _speedSize;
 
-    public void Update()
+    private void Update()
     {
         transform.localScale += _speedSize * Time.deltaTime;
     }

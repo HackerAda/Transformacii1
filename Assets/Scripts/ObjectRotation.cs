@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeRotate : MonoBehaviour
+public class ObjectRotation : MonoBehaviour
 {
     [SerializeField] private int _rotationSpeed;
 
-    public void Update()
+    private void Update()
     {
         transform.Rotate(0, _rotationSpeed, 0);
     }
