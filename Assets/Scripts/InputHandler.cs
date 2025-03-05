@@ -1,19 +1,16 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class InputHandler : MonoBehaviour
 {
-    private Counter _counterController;
-
-    private void Awake()
-    {
-        _counterController = GetComponent<Counter>();
-    }
+    public event Action OnMouseButtonClicked;
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _counterController.OnButtonClicked();
+            OnMouseButtonClicked?.Invoke();
         }
     }
 }
