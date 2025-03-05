@@ -1,41 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
-public class InputHandler : MonoBehaviour
-{
-    private CounterController _counterController;
-
-    private void Awake()
-    {
-        _counterController = GetComponent<CounterController>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _counterController.OnButtonClicked();
-        }
-    }
-}
-
-public class CounterController : MonoBehaviour
+public class Counter : MonoBehaviour
 {
     private int _counter = 0;
-    private bool _isCounting = false;
     private Coroutine _counterCoroutine;
+    private static readonly WaitForSeconds _wait = new WaitForSeconds(0.5f);
 
     public void OnButtonClicked()
     {
-        if (_isCounting == false)
+        if (_counterCoroutine == null)
         {
-            _isCounting = true;
             _counterCoroutine = StartCoroutine(CounterCoroutine());
         }
         else
         {
-            _isCounting = false;
             StopCoroutine(_counterCoroutine);
+            _counterCoroutine = null;
         }
     }
 
@@ -45,7 +26,7 @@ public class CounterController : MonoBehaviour
         {
             Debug.Log("Counter: " + _counter);
             _counter++;
-            yield return new WaitForSeconds(0.5f);
+            yield return _wait;
         }
     }
 }
