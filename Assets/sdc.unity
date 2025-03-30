@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546c0db68483a70469f0a926a5c528fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubePrefab: {fileID: 0}
+  _cubePrefab: {fileID: 6022847457278104839, guid: 53b36e9aae50df4448158df75b9da792, type: 3}
   _spawnRadius: 0.5
   _explosionPower: 10
   _explosionRadius: 5

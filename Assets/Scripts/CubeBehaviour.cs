@@ -6,6 +6,15 @@ public class CubeBehaviour : MonoBehaviour
     [SerializeField] private float _divisionChance = 1.0f;
     private CubeSpawner _spawner;
 
+    private void Awake()
+    {
+        _spawner = FindObjectOfType<CubeSpawner>();
+        if (_spawner == null)
+        {
+            Debug.LogError("CubeSpawner не найден в Awake!");
+        }
+    }
+
     private void OnMouseDown()
     {
         if (Random.value < _divisionChance)
