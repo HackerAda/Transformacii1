@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class ColorManager
+public class CubeColorController
 {
     public static void SetRandomColor(MeshRenderer renderer)
     {

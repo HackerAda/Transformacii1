@@ -1,8 +1,11 @@
 using UnityEngine;
+using System.Collections;
+using System.Runtime.CompilerServices;
+using UnityEngine.UIElements;
 
 public class CubeSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _cubePrefab;
+    [SerializeField] public Cube _cubePrefab;
     [SerializeField] private float _spawnRadius = 0.5f;
     [SerializeField] private float _explosionPower = 10f;
     [SerializeField] private float _explosionRadius = 5f;
@@ -19,19 +22,21 @@ public class CubeSpawner : MonoBehaviour
         for (int i = 0; i < numberOfCubes; i++)
         {
             Vector3 spawnPosition = position + Random.insideUnitSphere * _spawnRadius;
-            GameObject newCube = Instantiate(_cubePrefab, spawnPosition, Random.rotation);
+            Cube newCube = Instantiate(_cubePrefab, spawnPosition, Random.rotation);
 
             newCube.transform.localScale = scale * _sizeReduction;
-            ColorManager.SetRandomColor(newCube.GetComponent<MeshRenderer>());
+            CubeColorController.SetRandomColor(newCube.GetComponent<MeshRenderer>());
 
             CubeBehaviour cubeBehavior = newCube.GetComponent<CubeBehaviour>();
             cubeBehavior.SetDivisionChance(divisionChance / _decreaseСhance);
 
             Rigidbody rigidbody = newCube.GetComponent<Rigidbody>();
-            if (rigidbody != null)
-            {
-                rigidbody.AddExplosionForce(_explosionPower, position, _explosionRadius);
-            }
+            Explode(_explosionPower, position, _explosionRadius, rigidbody);
         }
+    }
+
+    private void Explode(float _explosionPower, Vector3 transform, float _explosionRadius, Rigidbody rigidbody)
+    {
+        rigidbody.AddExplosionForce(_explosionPower, transform, _explosionRadius);
     }
 }

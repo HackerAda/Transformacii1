@@ -503,7 +503,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 472298767}
-  - component: {fileID: 472298766}
+  - component: {fileID: 472298768}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -511,7 +511,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &472298766
+--- !u!4 &472298767
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472298765}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.2, y: 11.649214, z: 10.58632}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &472298768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -523,25 +538,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546c0db68483a70469f0a926a5c528fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubePrefab: {fileID: 4163273841825208289, guid: 53b36e9aae50df4448158df75b9da792, type: 3}
+  _cubePrefab: {fileID: 0}
   _spawnRadius: 0.5
   _explosionPower: 10
   _explosionRadius: 5
---- !u!4 &472298767
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 472298765}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.45510626, y: 11.649214, z: 10.58632}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &813137373
 PrefabInstance:
   m_ObjectHideFlags: 0
