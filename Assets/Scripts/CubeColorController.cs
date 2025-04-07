@@ -6,7 +6,9 @@ public class CubeColorController
     {
         if (renderer != null)
         {
-            renderer.material.color = new Color(Random.value, Random.value, Random.value);
+            Color randomColor = Random.ColorHSV();
+
+            renderer.material.color = randomColor;
         }
     }
 }   

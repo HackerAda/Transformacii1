@@ -9,8 +9,5 @@ public class Cube : MonoBehaviour
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
-
-        MeshRenderer renderer = GetComponent<MeshRenderer>();
-        renderer.material.color = new Color(Random.value, Random.value, Random.value);
     }
 }
