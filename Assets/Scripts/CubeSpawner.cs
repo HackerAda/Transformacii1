@@ -1,8 +1,6 @@
 using UnityEngine;
-using System.Collections;
-using System.Runtime.CompilerServices;
-using UnityEngine.UIElements;
 
+[RequireComponent(typeof(CubeBehaviour))]
 public class CubeSpawner : MonoBehaviour
 {
     [SerializeField] public Cube _cubePrefab;
@@ -10,53 +8,50 @@ public class CubeSpawner : MonoBehaviour
     [SerializeField] private float _explosionPower = 10f;
     [SerializeField] private float _explosionRadius = 5f;
 
-    private int _minRangeSpawn = 2;
-    private int _maxRangeSpawn = 7;
-    private int spawnPositionStartX = 8;
-    private int spawnPositionStartY = 0;
-    private int spawnPositionStartZ = 4;
-    private int startCubesAmount = 4;
+    private int _spawnPositionStartX = 8;
+    private int _spawnPositionStartY = 0;
+    private int _spawnPositionStartZ = 4;
+    private int _startCubesAmount = 4;
+    private float _startCubesDivisionChance = 2f;
     private float _sizeReduction = 0.5f;
     private float _decreaseСhance = 2f;
 
-    private void Awake()
+    private void Start()
     {
-        
-        Vector3 spawnPositionStart = new Vector3(8, 0, 4);
-
-        for (int i = 0; i < startCubesAmount; i++)
+        for(int i = 0; i < _startCubesAmount; i++)
         {
-            spawnPositionStart = new Vector3(spawnPositionStartX + i, spawnPositionStartY, spawnPositionStartZ + i);
-            Cube newCube = Instantiate(_cubePrefab, spawnPositionStart, Random.rotation);
-
-            CubeBehaviour cubeBehavior = newCube.GetComponent<CubeBehaviour>();
-            cubeBehavior.Initialize(this);
+            Vector3 startCubesPosition = new Vector3(_spawnPositionStartX + i, _spawnPositionStartY, _spawnPositionStartZ + i);
+            CreatingRegularCubes(startCubesPosition, _startCubesDivisionChance);
         }
     }
 
-    public void SpawnCubes(Vector3 position, Vector3 scale, float divisionChance)
+    public Cube SpawnCube(Vector3 position, Vector3 scale, float divisionChance)
     {
-        int numberOfCubes = Random.Range(_minRangeSpawn, _maxRangeSpawn);
+        Vector3 spawnPosition = position + Random.insideUnitSphere * _spawnRadius;
 
-        for (int i = 0; i < numberOfCubes; i++)
-        {
-            Vector3 spawnPosition = position + Random.insideUnitSphere * _spawnRadius;
-            Cube newCube = Instantiate(_cubePrefab, spawnPosition, Random.rotation);
+        Cube newCube = CreatingRegularCubes(spawnPosition, divisionChance / _decreaseСhance);
 
-            CubeBehaviour cubeBehavior = newCube.GetComponent<CubeBehaviour>();
-            cubeBehavior.Initialize(this);
+        newCube.transform.localScale = scale * _sizeReduction;
 
-            newCube.transform.localScale = scale * _sizeReduction;
-            CubeColorController.SetRandomColor(newCube.GetComponent<MeshRenderer>());
-
-            cubeBehavior.SetDivisionChance(divisionChance / _decreaseСhance);
-
-            Explode(_explosionPower, position, _explosionRadius, newCube.Rigidbody);
-        }
+        return newCube;
     }
 
-    private void Explode(float _explosionPower, Vector3 transform, float _explosionRadius, Rigidbody rigidbody)
+    private Cube CreatingRegularCubes(Vector3 position, float divisionChance)
     {
-        rigidbody.AddExplosionForce(_explosionPower, transform, _explosionRadius);
+        Cube newCube = InstantiateCube(_cubePrefab, position);
+
+        CubeBehaviour cubeBehavior = newCube.GetComponent<CubeBehaviour>();
+        cubeBehavior.Initialize(this);
+
+        CubeColorController.SetRandomColor(newCube.GetComponent<MeshRenderer>()); 
+
+        cubeBehavior.SetDivisionChance(divisionChance);
+        return newCube;
+    }
+
+    public Cube InstantiateCube(Cube cubePrefab, Vector3 position)
+    {
+        Cube newCube = Instantiate(cubePrefab, position, Random.rotation);
+        return newCube;
     }
 }
