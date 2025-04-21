@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ExplodeCube
+public class CubeExplode
 {
     public void Explode(float _explosionPower, Vector3 transform, float _explosionRadius, Rigidbody rigidbody)
     {

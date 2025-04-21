@@ -12,7 +12,7 @@ public class CubeBehaviour : MonoBehaviour
     private int _maxRangeSpawn = 7;
 
     private CubeSpawner _spawner;
-    private ExplodeCube _explodeCube;
+    private CubeExplode _explodeCube;
 
     public void Initialize(CubeSpawner spawner)
     {
@@ -21,7 +21,7 @@ public class CubeBehaviour : MonoBehaviour
 
     private void OnMouseDown()
     {
-        _explodeCube = new ExplodeCube();
+        _explodeCube = new CubeExplode();
 
         if (_spawner == null)
         {

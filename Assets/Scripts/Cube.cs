@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(MeshRenderer), typeof(Rigidbody))]
 public class Cube : MonoBehaviour
 {
     public Rigidbody Rigidbody { get; private set; }
@@ -9,8 +10,5 @@ public class Cube : MonoBehaviour
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
-
-        MeshRenderer renderer = GetComponent<MeshRenderer>();
-        renderer.material.color = new Color(Random.value, Random.value, Random.value);
     }
 }

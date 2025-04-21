@@ -1,14 +1,20 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class CubeColorController
+[RequireComponent(typeof(Renderer))]
+public class CubeColorController : MonoBehaviour
 {
-    public static void SetRandomColor(MeshRenderer renderer)
+    private Renderer _renderer;
+
+    private void Awake()
     {
-        if (renderer != null)
+        _renderer = GetComponent<Renderer>();
+
+        if (_renderer != null)
         {
             Color randomColor = Random.ColorHSV();
 
-            renderer.material.color = randomColor;
+            _renderer.material.color = randomColor;
         }
     }
 }   

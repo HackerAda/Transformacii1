@@ -5,14 +5,12 @@ public class CubeSpawner : MonoBehaviour
 {
     [SerializeField] public Cube _cubePrefab;
     [SerializeField] private float _spawnRadius = 0.5f;
-    [SerializeField] private float _explosionPower = 10f;
-    [SerializeField] private float _explosionRadius = 5f;
 
     private int _spawnPositionStartX = 8;
     private int _spawnPositionStartY = 0;
     private int _spawnPositionStartZ = 4;
     private int _startCubesAmount = 4;
-    private float _startCubesDivisionChance = 2f;
+    private float _startCubesDivisionChance = 1f;
     private float _sizeReduction = 0.5f;
     private float _decreaseСhance = 2f;
 
@@ -42,8 +40,6 @@ public class CubeSpawner : MonoBehaviour
 
         CubeBehaviour cubeBehavior = newCube.GetComponent<CubeBehaviour>();
         cubeBehavior.Initialize(this);
-
-        CubeColorController.SetRandomColor(newCube.GetComponent<MeshRenderer>()); 
 
         cubeBehavior.SetDivisionChance(divisionChance);
         return newCube;
