@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody))]
 public class CubeBehaviour : MonoBehaviour
@@ -17,12 +17,11 @@ public class CubeBehaviour : MonoBehaviour
     public void Initialize(CubeSpawner spawner)
     {
         _spawner = spawner;
+        _explodeCube = new CubeExplode();
     }
 
-    private void OnMouseDown()
+    public void HandleClick()
     {
-        _explodeCube = new CubeExplode();
-
         if (_spawner == null)
         {
             Debug.LogError("Спавнер не задан!");
@@ -32,13 +31,15 @@ public class CubeBehaviour : MonoBehaviour
         if (Random.value < _divisionChance)
         {
             int numberOfCubes = Random.Range(_minRangeSpawn, _maxRangeSpawn);
+            List<Cube> newCubes = new List<Cube>();
 
             for (int i = 0; i < numberOfCubes; i++)
             {
                 Cube newCube = _spawner.SpawnCube(transform.position, transform.localScale, _divisionChance);
-
-                _explodeCube.Explode(_explosionPower, newCube.transform.position, _explosionRadius, newCube.Rigidbody);
+                newCubes.Add(newCube);
             }
+
+            _explodeCube.Explode(_explosionPower, transform.position, _explosionRadius, newCubes);
         }
 
         Destroy(gameObject);

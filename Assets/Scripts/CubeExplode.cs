@@ -1,13 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CubeExplode
 {
-    public void Explode(float _explosionPower, Vector3 transform, float _explosionRadius, Rigidbody rigidbody)
+    public void Explode(float explosionPower, Vector3 explosionPosition, float explosionRadius, List<Cube> cubes)
     {
-        rigidbody.AddExplosionForce(_explosionPower, transform, _explosionRadius);
+        foreach (Cube cube in cubes)
+        {
+            Rigidbody rb = cube.Rigidbody;
+            if (rb != null)
+            {
+                rb.AddExplosionForce(explosionPower, explosionPosition, explosionRadius);
+            }
+        }
     }
 }
-

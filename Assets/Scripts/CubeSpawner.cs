@@ -12,36 +12,31 @@ public class CubeSpawner : MonoBehaviour
     private int _startCubesAmount = 4;
     private float _startCubesDivisionChance = 1f;
     private float _sizeReduction = 0.5f;
-    private float _decreaseСhance = 2f;
+    private float _decreaseChance = 2f;
 
     private void Start()
     {
-        for(int i = 0; i < _startCubesAmount; i++)
+        for (int i = 0; i < _startCubesAmount; i++)
         {
             Vector3 startCubesPosition = new Vector3(_spawnPositionStartX + i, _spawnPositionStartY, _spawnPositionStartZ + i);
-            CreatingRegularCubes(startCubesPosition, _startCubesDivisionChance);
+            CreateRegularCube(startCubesPosition, _startCubesDivisionChance);
         }
     }
 
     public Cube SpawnCube(Vector3 position, Vector3 scale, float divisionChance)
     {
         Vector3 spawnPosition = position + Random.insideUnitSphere * _spawnRadius;
-
-        Cube newCube = CreatingRegularCubes(spawnPosition, divisionChance / _decreaseСhance);
-
+        Cube newCube = CreateRegularCube(spawnPosition, divisionChance / _decreaseChance);
         newCube.transform.localScale = scale * _sizeReduction;
-
         return newCube;
     }
 
-    private Cube CreatingRegularCubes(Vector3 position, float divisionChance)
+    private Cube CreateRegularCube(Vector3 position, float divisionChance)
     {
         Cube newCube = InstantiateCube(_cubePrefab, position);
-
-        CubeBehaviour cubeBehavior = newCube.GetComponent<CubeBehaviour>();
-        cubeBehavior.Initialize(this);
-
-        cubeBehavior.SetDivisionChance(divisionChance);
+        CubeBehaviour cubeBehaviour = newCube.GetComponent<CubeBehaviour>();
+        cubeBehaviour.Initialize(this);
+        cubeBehaviour.SetDivisionChance(divisionChance);
         return newCube;
     }
 
