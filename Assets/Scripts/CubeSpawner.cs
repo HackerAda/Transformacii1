@@ -1,9 +1,9 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-[RequireComponent(typeof(CubeBehaviour))]
 public class CubeSpawner : MonoBehaviour
 {
-    [SerializeField] public Cube _cubePrefab;
+    [SerializeField] private Cube _cubePrefab;
     [SerializeField] private float _spawnRadius = 0.5f;
 
     private int _spawnPositionStartX = 8;
@@ -33,16 +33,29 @@ public class CubeSpawner : MonoBehaviour
 
     private Cube CreateRegularCube(Vector3 position, float divisionChance)
     {
-        Cube newCube = InstantiateCube(_cubePrefab, position);
-        CubeBehaviour cubeBehaviour = newCube.GetComponent<CubeBehaviour>();
-        cubeBehaviour.Initialize(this);
-        cubeBehaviour.SetDivisionChance(divisionChance);
+        Cube newCube = Instantiate(_cubePrefab, position, Random.rotation);
+        newCube.SetDivisionChance(divisionChance);
+        newCube.OnClicked += HandleCubeClick;
         return newCube;
     }
 
-    public Cube InstantiateCube(Cube cubePrefab, Vector3 position)
+    private void HandleCubeClick(Cube cube)
     {
-        Cube newCube = Instantiate(cubePrefab, position, Random.rotation);
-        return newCube;
+        cube.OnClicked -= HandleCubeClick;
+        if (Random.value < cube.DivisionChance)
+        {
+            int numberOfCubes = Random.Range(2, 7);
+            List<Cube> newCubes = new List<Cube>();
+
+            for (int i = 0; i < numberOfCubes; i++)
+            {
+                Cube newCube = SpawnCube(cube.transform.position, cube.transform.localScale, cube.DivisionChance);
+                newCubes.Add(newCube);
+            }
+
+            CubeExplode.Explode(100f, cube.transform.position, 5f, newCubes);
+        }
+
+        Destroy(cube.gameObject);
     }
 }

@@ -1,7 +1,9 @@
 using UnityEngine;
+using System;
 
-public class CubeClickHandler : MonoBehaviour
+public class InputHandler : MonoBehaviour
 {
+    public event Action<Cube> OnCubeClicked;
     private Camera _mainCamera;
 
     private void Start()
@@ -19,11 +21,7 @@ public class CubeClickHandler : MonoBehaviour
                 Cube cube = hit.collider.GetComponent<Cube>();
                 if (cube != null)
                 {
-                    CubeBehaviour cubeBehaviour = cube.GetComponent<CubeBehaviour>();
-                    if (cubeBehaviour != null)
-                    {
-                        cubeBehaviour.HandleClick();
-                    }
+                    OnCubeClicked?.Invoke(cube);
                 }
             }
         }
